@@ -18,8 +18,11 @@ interface ControlPanelProps {
   // Missile Query
   missileQueryParams: MissileQueryParams;
   onMissileQueryParamChange: <K extends keyof MissileQueryParams>(key: K, value: MissileQueryParams[K]) => void;
-  onLoadMissiles: () => void;
-  isLoadingMissiles: boolean;
+
+  // Global load button
+  isLoading: boolean;
+  isDirty: boolean;
+  onLoad: () => void;
   missileCount: number;
 
   // Aircraft (display toggles)
@@ -46,8 +49,9 @@ export function ControlPanel({
   onTimeRangeChange,
   missileQueryParams,
   onMissileQueryParamChange,
-  onLoadMissiles,
-  isLoadingMissiles,
+  isLoading,
+  isDirty,
+  onLoad,
   missileCount,
   showAircraftPaths,
   onToggleAircraftPaths,
@@ -62,80 +66,94 @@ export function ControlPanel({
   showMissiles,
   onToggleMissiles,
 }: ControlPanelProps) {
+  const hasTimeRange = missileQueryParams.timeRange.start && missileQueryParams.timeRange.end;
+
   return (
     <div className="control-panel" dir="rtl">
-      <h3 className="panel-title">
-        <span>בקרת תצוגה</span>
-        <div className="panel-title-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="m21 21-4.35-4.35"/>
-          </svg>
-        </div>
-      </h3>
+      <div className="control-panel-body">
+        <h3 className="panel-title">
+          <span>בקרת תצוגה</span>
+          <div className="panel-title-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+          </div>
+        </h3>
 
-      {/* Time Range - Global */}
-      <TimeFilter
-        timeRange={timeRange}
-        onTimeRangeChange={onTimeRangeChange}
-      />
+        {/* Time Range - Global */}
+        <TimeFilter
+          timeRange={timeRange}
+          onTimeRangeChange={onTimeRangeChange}
+        />
 
-      {/* Entity Display Toggles */}
-      <div className="control-section">
-        <h4 className="control-title">תצוגת יישויות</h4>
-        <div className="checkbox-group">
-          <div className="checkbox-item-wrapper">
+        {/* Entity Display Toggles */}
+        <div className="control-section">
+          <h4 className="control-title">תצוגת יישויות</h4>
+          <div className="checkbox-group">
+            <div className="checkbox-item-wrapper">
+              <label className="checkbox-item">
+                <input
+                  type="checkbox"
+                  checked={showMissiles}
+                  onChange={onToggleMissiles}
+                />
+                <span>מסלולי טילים</span>
+              </label>
+
+              {showMissiles && (
+                <div className="entity-options">
+                  <MissileQueryForm
+                    queryParams={missileQueryParams}
+                    onParamChange={onMissileQueryParamChange}
+                  />
+                </div>
+              )}
+            </div>
+
             <label className="checkbox-item">
               <input
                 type="checkbox"
-                checked={showMissiles}
-                onChange={onToggleMissiles}
+                checked={showAircraftPaths}
+                onChange={onToggleAircraftPaths}
               />
-              <span>מסלולי טילים</span>
+              <span>מסלולי מטוסים</span>
             </label>
-
-            {/* Missile Query - Only shown when missiles are enabled */}
-            {showMissiles && (
-              <div className="entity-options">
-                <MissileQueryForm
-                  queryParams={missileQueryParams}
-                  onParamChange={onMissileQueryParamChange}
-                  onLoad={onLoadMissiles}
-                  isLoading={isLoadingMissiles}
-                  missileCount={missileCount}
-                />
-              </div>
-            )}
+            <label className="checkbox-item">
+              <input
+                type="checkbox"
+                checked={showAircraftCrashes}
+                onChange={onToggleAircraftCrashes}
+              />
+              <span>התרסקויות מטוסים</span>
+            </label>
           </div>
-
-          <label className="checkbox-item">
-            <input
-              type="checkbox"
-              checked={showAircraftPaths}
-              onChange={onToggleAircraftPaths}
-            />
-            <span>מסלולי מטוסים</span>
-          </label>
-          <label className="checkbox-item">
-            <input
-              type="checkbox"
-              checked={showAircraftCrashes}
-              onChange={onToggleAircraftCrashes}
-            />
-            <span>התרסקויות מטוסים</span>
-          </label>
         </div>
+
+        {/* Map Layer (Grid Cells) */}
+        <MapLayerRadio
+          activeLayer={activeMapLayer}
+          onLayerChange={onMapLayerChange}
+          aggregationType={aggregationType}
+          onAggregationChange={onAggregationChange}
+          selectedChannel={selectedChannel}
+          onChannelChange={onChannelChange}
+        />
       </div>
 
-      {/* Map Layer (Grid Cells) */}
-      <MapLayerRadio
-        activeLayer={activeMapLayer}
-        onLayerChange={onMapLayerChange}
-        aggregationType={aggregationType}
-        onAggregationChange={onAggregationChange}
-        selectedChannel={selectedChannel}
-        onChannelChange={onChannelChange}
-      />
+      {/* Global Load Button — sticky at bottom */}
+      <div className="load-all-section">
+        <button
+          className={`load-all-btn${isDirty ? ' dirty' : ''}`}
+          onClick={onLoad}
+          disabled={!hasTimeRange || isLoading || !isDirty}
+        >
+          {isLoading
+            ? 'טוען...'
+            : `טען נתונים${missileCount > 0 ? ` (${missileCount})` : ''}`
+          }
+        </button>
+      </div>
     </div>
   );
 }

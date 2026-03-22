@@ -4,20 +4,12 @@ import './Controls.css';
 interface MissileQueryFormProps {
   queryParams: MissileQueryParams;
   onParamChange: <K extends keyof MissileQueryParams>(key: K, value: MissileQueryParams[K]) => void;
-  onLoad: () => void;
-  isLoading: boolean;
-  missileCount: number;
 }
 
 export function MissileQueryForm({
   queryParams,
   onParamChange,
-  onLoad,
-  isLoading,
-  missileCount,
 }: MissileQueryFormProps) {
-  const hasTimeRange = queryParams.timeRange.start && queryParams.timeRange.end;
-
   return (
     <div className="missile-query-form">
       {/* Text inputs */}
@@ -75,15 +67,6 @@ export function MissileQueryForm({
           ))}
         </select>
       </div>
-
-      {/* Load button */}
-      <button
-        className="load-missiles-btn"
-        onClick={onLoad}
-        disabled={!hasTimeRange || isLoading}
-      >
-        {isLoading ? 'טוען...' : `טען טילים${missileCount > 0 ? ` (${missileCount})` : ''}`}
-      </button>
     </div>
   );
 }

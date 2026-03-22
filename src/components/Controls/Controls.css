@@ -7,17 +7,24 @@
   right: 10px;
   background: rgba(40, 40, 50, 0.95);
   border: 2px solid rgba(255, 255, 255, 0.16);
-  padding: 16px 20px 24px;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   z-index: 1000;
   width: 300px;
   max-width: calc(100vw - 20px);
   max-height: calc(100vh - 120px);
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
   font-family: 'Assistant', sans-serif;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.control-panel-body {
+  padding: 16px 20px 8px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .panel-title {
@@ -430,4 +437,44 @@
 .load-missiles-btn:disabled {
   background: rgba(201, 68, 98, 0.4);
   cursor: not-allowed;
+}
+
+/* ========== Global Load Button (sticky bottom) ========== */
+.load-all-section {
+  padding: 12px 20px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(40, 40, 50, 0.98);
+  flex-shrink: 0;
+}
+
+.load-all-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: #c94462;
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.load-all-btn:hover:not(:disabled) {
+  background: #d45574;
+}
+
+.load-all-btn:active:not(:disabled) {
+  background: #b33a55;
+}
+
+.load-all-btn:disabled {
+  background: rgba(201, 68, 98, 0.4);
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.load-all-btn.dirty {
+  background: rgba(201, 68, 98, 0.55);
 }

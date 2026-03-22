@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { aircraftData } from './data/mockAircraftData';
 import { getGridLayerData } from './data/mockGridData';
 import { MapView } from './components/Map/MapContainer';
@@ -8,10 +8,13 @@ import { ControlPanel } from './components/Controls/ControlPanel';
 import { useMissileSelection } from './hooks/useMissileSelection';
 import { useMissileQuery } from './hooks/useMissileQuery';
 import { useMapLayers } from './hooks/useMapLayers';
+import type { CommChannel } from './types';
+import type { MissileQueryParams } from './api/missiles';
 import './App.css';
 
 function App() {
   const { selectedMissileId, selectMissile } = useMissileSelection();
+  const [isDirty, setIsDirty] = useState(true);
 
   // Missile query from server
   const {
@@ -36,10 +39,27 @@ function App() {
     setSelectedChannel,
   } = useMapLayers();
 
-  // Sync time range changes to missile query
   const handleTimeRangeChange = (range: typeof queryParams.timeRange) => {
     setTimeRange(range);
+    setIsDirty(true);
   };
+
+  const handleQueryParamChange = useCallback(<K extends keyof MissileQueryParams>(
+    key: K, value: MissileQueryParams[K]
+  ) => {
+    updateQueryParam(key, value);
+    setIsDirty(true);
+  }, [updateQueryParam]);
+
+  const handleChannelChange = useCallback((channel: CommChannel) => {
+    setSelectedChannel(channel);
+    setIsDirty(true);
+  }, [setSelectedChannel]);
+
+  const handleLoad = useCallback(async () => {
+    setIsDirty(false);
+    await loadMissiles();
+  }, [loadMissiles]);
 
   // Grid data
   const gridData = useMemo(
@@ -73,9 +93,10 @@ function App() {
           timeRange={queryParams.timeRange}
           onTimeRangeChange={handleTimeRangeChange}
           missileQueryParams={queryParams}
-          onMissileQueryParamChange={updateQueryParam}
-          onLoadMissiles={loadMissiles}
-          isLoadingMissiles={isLoading}
+          onMissileQueryParamChange={handleQueryParamChange}
+          isLoading={isLoading}
+          isDirty={isDirty}
+          onLoad={handleLoad}
           missileCount={missiles.length}
           showAircraftPaths={entityLayers.aircraftPaths}
           onToggleAircraftPaths={() => toggleEntityLayer('aircraftPaths')}
@@ -86,7 +107,7 @@ function App() {
           aggregationType={aggregationType}
           onAggregationChange={setAggregationType}
           selectedChannel={selectedChannel}
-          onChannelChange={setSelectedChannel}
+          onChannelChange={handleChannelChange}
           showMissiles={entityLayers.missiles}
           onToggleMissiles={() => toggleEntityLayer('missiles')}
         />
