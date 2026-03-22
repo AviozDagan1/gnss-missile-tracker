@@ -1,0 +1,120 @@
+.map-legend {
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  min-width: 160px;
+}
+
+.map-legend h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: #1e3a5f;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+}
+
+.legend-section {
+  margin-bottom: 12px;
+}
+
+.legend-section:last-child {
+  margin-bottom: 0;
+}
+
+.legend-section h5 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+  color: #374151;
+}
+
+.legend-item:last-child {
+  margin-bottom: 0;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* Enemy systems colors */
+.legend-dot.enemy-low {
+  background: #22c55e;
+  border: 2px solid #16a34a;
+}
+
+.legend-dot.enemy-medium {
+  background: #f97316;
+  border: 2px solid #ea580c;
+}
+
+.legend-dot.enemy-high {
+  background: #ef4444;
+  border: 2px solid #dc2626;
+}
+
+/* GNSS trajectory lines */
+.legend-line {
+  width: 24px;
+  height: 3px;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+.legend-line.gnss-blocked {
+  background: #ef4444;
+}
+
+.legend-line.gnss-not-blocked {
+  background: #22c55e;
+}
+
+.legend-line.gnss-pending {
+  background: #9ca3af;
+}
+
+/* Aircraft */
+.legend-dot.crash-marker {
+  background: #dc2626;
+  border: 2px solid #7f1d1d;
+}
+
+.legend-line.aircraft-path {
+  background: #3b82f6;
+  border-style: dashed;
+}
+
+/* Gradient for grid layers */
+.legend-gradient {
+  margin-top: 4px;
+}
+
+.gradient-bar {
+  height: 12px;
+  border-radius: 4px;
+  background: linear-gradient(to right, #ef4444, #fbbf24, #22c55e);
+}
+
+.gradient-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #6b7280;
+  margin-top: 2px;
+}

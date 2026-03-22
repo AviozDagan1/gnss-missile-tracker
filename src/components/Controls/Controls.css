@@ -1,0 +1,433 @@
+/* ========== Control Panel - Dark Theme (Effecta Style) ========== */
+
+.layer-panel,
+.control-panel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(40, 40, 50, 0.95);
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  padding: 16px 20px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  width: 300px;
+  max-width: calc(100vw - 20px);
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: 'Assistant', sans-serif;
+  box-sizing: border-box;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.panel-title-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(201, 68, 98, 0.16);
+  border-radius: 60px;
+  color: #c94462;
+  flex-shrink: 0;
+}
+
+.control-section {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.control-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.control-title {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+  text-align: right;
+}
+
+.control-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.control-title-row .control-title {
+  margin: 0;
+}
+
+.clear-filters-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.clear-filters-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* ========== Time Filter ========== */
+.time-filter-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.time-filter-row label {
+  min-width: 45px;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.time-filter-row input[type="date"],
+.time-filter-row input[type="time"] {
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  flex: 1;
+  min-width: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.time-filter-row input[type="date"]:focus,
+.time-filter-row input[type="time"]:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Dark input color scheme */
+.time-filter-row input[type="date"]::-webkit-calendar-picker-indicator,
+.time-filter-row input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+/* ========== Radio Group ========== */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.radio-item-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  flex-wrap: wrap;
+  padding: 6px 0;
+}
+
+.radio-item input[type="radio"] {
+  accent-color: #c94462;
+  width: 16px;
+  height: 16px;
+}
+
+/* Layer options (shown when layer is selected) */
+.layer-options {
+  margin-right: 26px;
+  margin-top: 4px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  border-right: 2px solid #c94462;
+}
+
+/* Entity options (e.g., missile query form when missiles enabled) */
+.entity-options {
+  margin-right: 26px;
+  margin-top: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 4px;
+  border-right: 2px solid #c94462;
+}
+
+.checkbox-item-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Nested missile query form */
+.missile-query-form .query-row {
+  margin-bottom: 6px;
+}
+
+.missile-query-form .query-input,
+.missile-query-form .query-select {
+  font-size: 12px;
+  padding: 8px;
+}
+
+.missile-query-form .load-missiles-btn {
+  margin-top: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.layer-option-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.layer-option-row:last-child {
+  margin-bottom: 0;
+}
+
+.layer-option-row label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+  min-width: 80px;
+  text-align: right;
+}
+
+.layer-option-select {
+  flex: 1;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  font-size: 13px;
+  color: white;
+  cursor: pointer;
+}
+
+.layer-option-select option {
+  background: #2a2a35;
+  color: white;
+}
+
+.channel-select {
+  margin-right: auto;
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+}
+
+/* ========== Checkbox Group ========== */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  padding: 6px 0;
+}
+
+.checkbox-item input[type="checkbox"] {
+  accent-color: #c94462;
+  width: 16px;
+  height: 16px;
+}
+
+/* ========== Aggregation Select ========== */
+.aggregation-select {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.aggregation-select label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.aggregation-select select {
+  flex: 1;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+}
+
+/* ========== Filter Group ========== */
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group label {
+  min-width: 80px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.filter-group select {
+  flex: 1;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  font-size: 14px;
+  color: white;
+}
+
+/* ========== GNSS Button ========== */
+.gnss-calc-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: #c94462;
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.gnss-calc-btn:hover {
+  background: #d45574;
+}
+
+.gnss-calc-btn:active {
+  background: #b33a55;
+}
+
+/* ========== Query Form ========== */
+.query-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.query-input {
+  flex: 1;
+  min-width: calc(50% - 6px);
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+
+.query-input::placeholder {
+  color: #ccc;
+}
+
+.query-input:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.query-select {
+  flex: 1;
+  min-width: calc(50% - 6px);
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+}
+
+.query-select.full-width {
+  flex: none;
+  width: 100%;
+  min-width: 100%;
+}
+
+.query-select option {
+  background: #2a2a35;
+  color: white;
+}
+
+.load-missiles-btn {
+  width: 100%;
+  padding: 10px 20px;
+  background: #c94462;
+  color: white;
+  border: none;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.load-missiles-btn:hover:not(:disabled) {
+  background: #d45574;
+}
+
+.load-missiles-btn:disabled {
+  background: rgba(201, 68, 98, 0.4);
+  cursor: not-allowed;
+}
